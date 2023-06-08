@@ -1,3 +1,3 @@
 Run the scripts
-> kubernetes.sh
-> kubeadm.sh
+1. kubernetes.sh
+2. kubeadm.sh
