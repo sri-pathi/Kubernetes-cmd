@@ -1,1 +1,3 @@
-# Kubernetes-cmd
+Run the scripts
+> kubernetes.sh
+> kubeadm.sh
