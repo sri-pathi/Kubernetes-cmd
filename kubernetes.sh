@@ -1,6 +1,6 @@
 sudo apt update
 
-sudo apt install docker.io
+sudo apt install docker.io -y
 
 apt-get update && apt-get install -y apt-transport-https curl
 
