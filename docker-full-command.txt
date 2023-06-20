@@ -1,0 +1,161 @@
+apt install docker.io
+
+docker --version
+
+docker images or docker image ls
+
+docker search nginx
+
+docker pull nginx
+
+docker rmi nginx
+
+docker run nginx
+
+docker run -d nginx
+
+docker run -d -p 81:80 nginx
+
+docker run --name test -d -p 80:80 nginx
+
+docker run -itd ubuntu
+
+docker tag old new
+
+docker stop 
+
+docker start 
+
+docker rm
+
+docker rm -f $(docker ps -aq)
+
+docker rmi -f $(docker images -aq)
+
+docker rm tag-name
+
+docker login -u acc-username -p acc-password
+
+docker push 
+
+docker cp file.txt container:/
+
+docker cp conatainer:/data .
+
+docker network ls
+
+docker network create test
+
+bridge 
+host
+none
+
+****************************************************************************************
+
+docker volume ls
+
+bind mount
+tmfps
+volume
+
+docker volume create data
+
+docker run -d --mount source=data,destination=/etc nignx
+
+docker run -V /home/ubuntu 
+
+docker volume rm data
+
+docker volume inspect data
+
+****************************************************************************************
+
+Dockerfile
+
+FROM os or applicatio
+RUN command's
+ADD file
+COPY file
+CMD run time command
+ENTRIPOINT run time command
+EXPOSE 80
+ENV 
+WORKDIR
+VOLUME data
+ARG
+
+****************************************************************************************
+
+dockerfile for HTML application
+
+FROM ubuntu
+
+RUN apt update
+
+RUN apt install apache2 -y
+
+RUN  rm -rf /var/www/html/index.html
+COPY index.html /var/www/html/
+
+EXPOSE 80
+
+CMD apache2ctl -D FOREGOUND
+
+******************************************************************************************
+
+Dockerfile for java application
+
+FROM openjdk:8-alpine
+
+RUN mkdir -p /opt/app
+ENV PROJECT_HOME /opt/app
+
+COPY target/*.jar $PROJECT_HOME/*.jar
+
+WORKDIR $PROJECT_HOME
+EXPOSE 8080
+CMD ["java" ,"-jar","./spring-boot-mongo.jar"]
+
+******************************************************************************************
+
+Dockerfile for node js application
+
+FROM node:6.10.3
+
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+
+COPY package.json /usr/src/app/
+RUN npm install
+
+
+COPY . /usr/src/app
+
+EXPOSE 9000
+CMD [ "npm", "start" ]
+
+*******************************************************************************************
+
+apt  install docker-compose 
+
+vi docker-compose.yml
+
+version: '3'
+
+services:
+  html:
+    image: arunmagi/html
+    ports:
+      - 80:80
+  java-application:
+    image: arunmagi/java
+    ports:
+      - 8086:8080
+  
+doker-compose docker-compose1.yaml up  -d
+
+docker-compose down
+________________________________________________________________________________________
+
