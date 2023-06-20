@@ -1,0 +1,107 @@
+
+Creating Kubernetes connection between Master and Worker node.
+
+1. Create the three servers
+
+************************************** Slave ********************************************
+
+1. sudo vi /etc/ssh/sshd_config
+
+2. systemctl restart sshd
+
+3. passwd ubuntu
+
+************************************* Master ***********************************************
+
+1. ssh-keygen
+
+2. ssh-copy-id ubuntu@slave-ips
+
+*********************************** Master and slave both *********************************
+
+1. sudo apt update
+
+2. sudo apt install docker.io
+
+3. apt-get update && apt-get install -y apt-transport-https curl
+
+4. curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+5. cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+6. apt-get update
+
+7. sudo apt-get update && sudo apt-get install -y kubelet=1.20.0-00 kubeadm=1.20.0-00 kubectl=1.20.0-00 
+
+8. sudo systemctl start docker && sudo systemctl enable docker
+
+****************************** Master *************************************************
+
+allow the all tcp in all servers
+
+1. kubeadm init
+
+  1. mkdir -p $HOME/.kube
+  2. sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  3. sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  4. export KUBECONFIG=/etc/kubernetes/admin.conf
+
+2. kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+
+***************************** Slave ****************************************************
+
+kubeadm join 172.31.43.44:6443 --token 5tuudr.e5eu1xcj4c6ozdev \
+    --discovery-token-ca-cert-hash sha256:4ce77fe497bfa32255e28d52fe490a331c52c9df4d83660390ad655a1a107130
+
+***************************** Kubectl commands ******************************************
+
+1. kubectl get node
+
+2. kubectl get pods -n kube-system
+
+3. kubectl get pods
+
+4. kubectl apply -f deployment.yaml
+
+5. kubectl get describe pods pods-name
+
+6. kubectl get svc
+
+7. kubectl get hpa
+
+8. kubectl get replica
+
+9. kubectl delete pods pods-name
+
+10. kubectl rollout restart deployment deploy-name
+
+11. kubectl create ns
+
+12. kubectl get ns
+
+13. kubectl apply -f deployment.yaml
+
+14. kubectl get pods -n ns-name
+
+**************************** Helm commands ****************************************
+
+1. wget https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz
+
+2. tar -xvf helm-v3.0.0-linux-amd64.tar.gz
+
+3. cp linux-amd64/helm /bin
+
+4. helm version
+
+5.helm create app
+
+6. helm list
+
+7. helm status app                                    
+
+8. helm install app .
+
+9. helm uninstall app
+
